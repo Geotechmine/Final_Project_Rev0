@@ -8,14 +8,14 @@ import gzip, pickle, pickletools
 
 app = Flask(__name__)
 
-with gzip.open("RF_classifier.pkl", 'rb') as f:
+with gzip.open("drought/RF_classifier.pkl", 'rb') as f:
     p = pickle.Unpickler(f)
     model = p.load()
 
 #model = pickle.load(open("RF_classifier.pkl","rb"))
 #model = pickle.load(open("RF_classifier6.pkl","rb"))
 
-sc= pickle.load(open("RF_classifier_sc.pkl", "rb"))
+sc= pickle.load(open("drought/RF_classifier_sc.pkl", "rb"))
 
 
 
@@ -67,12 +67,12 @@ def predict():
       row_sc_df = sc.transform(row_df.reshape(1, -1))
 
      
-      print(row_sc_df) 
+      #print(row_sc_df) 
       prediction=model.predict(row_sc_df.reshape(1, -1))
 
  
       output = prediction[0]
-      print(output)
+      #print(output)
 
       return render_template('prediction.html', prediction_text=output)
 
